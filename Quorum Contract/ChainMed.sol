@@ -23,6 +23,8 @@ contract ChainMed{
         uint256 doctorID;
         // represents the public key in the blockchain for the doctor
         address doctorAddress; 
+        // represents the public key of the doctor which will be used for asymmetric encryption
+        string doctorPublicKey;
     }
 
     mapping(bytes32 => Patient) public patientMap; //add patient instance to dictionary indexed by a 256 bit hash
@@ -33,11 +35,11 @@ contract ChainMed{
         require(msg.sender == Admin, "You are not authorized to deploy a contract!");
     }
     
-    function registerDoctor(uint256 _doctorID,string memory _doctorName,string memory _doctorSurname, address _doctorAddress) external{
+    function registerDoctor(uint256 _doctorID,string memory _doctorName,string memory _doctorSurname, address _doctorAddress, string memory _doctorPublicKey) external{
         require(msg.sender == Admin, "You are not authorized!");
         require(doctorMap[sha256(abi.encodePacked(_doctorAddress))].doctorAddress == address(0), "Doctor is already registered!");
         doctorMap[sha256(abi.encodePacked(_doctorAddress))] = Doctor({doctorName: _doctorName,doctorSurname: _doctorSurname,
-        doctorID: _doctorID,doctorAddress: _doctorAddress});
+        doctorID: _doctorID,doctorAddress: _doctorAddress,doctorPublicKey: _doctorPublicKey});
     }
     
     function registerPatient(uint256 _patientID,address _patientAddress) external{
