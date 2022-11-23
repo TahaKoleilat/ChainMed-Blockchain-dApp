@@ -37,11 +37,11 @@ contract ChainMed{
         require(msg.sender == Admin, "You are not authorized to deploy a contract");
     }
     
-    function registerDoctor(uint256 _doctorID,string memory _doctorName,string memory _doctorSurname, address _doctorAddress, string memory _doctorPublicKey) external{
+    function registerDoctor(uint256 _doctorID,string memory _doctorName,string memory _doctorSurname, address _doctorAddress) external{
         require(msg.sender == Admin, "You are not authorized!");
         require(doctorMap[sha256(abi.encodePacked(_doctorAddress))].doctorAddress == address(0), "Doctor is already registered!");
         doctorMap[sha256(abi.encodePacked(_doctorAddress))] = Doctor({doctorName: _doctorName,doctorSurname: _doctorSurname,
-        doctorID: _doctorID,doctorAddress: _doctorAddress,doctorPublicKey: _doctorPublicKey});
+        doctorID: _doctorID,doctorAddress: _doctorAddress});
     }
     
     function registerPatient(uint256 _patientID,address _patientAddress) external{
