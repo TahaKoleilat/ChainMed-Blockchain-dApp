@@ -5,7 +5,7 @@ from web3 import Web3
 import os
 from dotenv import load_dotenv
 from hashlib import sha256
-
+from Encryption import *
 
 def get_private_key(url):
     web3 = Web3(Web3.HTTPProvider(url))
@@ -14,6 +14,7 @@ def get_private_key(url):
     with open(keyfile.replace("\\",'/')) as f:
         key_data = json.load(f)
     private_key = web3.eth.account.decrypt(key_data,"").hex()
+    Asymmetric_Encryption()
     return private_key
 
 def deploy_contract(abi,bytecode,url):

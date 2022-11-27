@@ -5,7 +5,7 @@ from web3 import Web3
 import os
 from dotenv import load_dotenv
 from hashlib import sha256
-
+from Encryption import *
 
 def get_private_key(url):
     web3 = Web3(Web3.HTTPProvider(url))
@@ -65,7 +65,10 @@ def upload_file(abi,url,host,port,file,doctorAddress,patientAddress,contract_add
     signed_tx = web3.eth.account.signTransaction(tx, private_key=private_key)
 
     tx_transact = web3.eth.sendRawTransaction(signed_tx.rawTransaction)
-
+    plain_text = open(file,"r")
+    plain_text = bytes(plain_text, 'utf-8')
+    encrypted_text = Symmetric_Encryption(plain_text,symmetric_key)
+    Asymmetric_Encryption(encrypted_text,public_key)
 
     tx_receipt = web3.eth.waitForTransactionReceipt(tx_transact)
         
@@ -81,6 +84,10 @@ def retrieve_file(abi,url,host,port,doctorAddress,patientAddress,contract_addres
     
     load_dotenv()
     encrypted_ipfshash_list = contract.functions.retrieveFile(doctorAddress,patientAddress).call()
+    encrypted_text = open(file,"r")
+    encrypted_text = bytes(encrypted_text, 'utf-8')
+    plain_text = Asymmetric_Decryption(encrypted_text,symmetric_key)
+    Symmetric_Decryption(plain_text, private_key)
     for i in range(len(encrypted_ipfshash_list)):
         encrypted_ipfshash = encrypted_ipfshash_list[i]
         ipfshash = retrieve_ipfs(host,port,encrypted_ipfshash)
