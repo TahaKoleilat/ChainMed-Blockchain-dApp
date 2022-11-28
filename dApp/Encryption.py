@@ -1,5 +1,5 @@
 # for symmetric we will use AES, as it is used for medical records and DES is no longer effective and triple DES is following suite.
-# for asymmetric we will use DSS since it is the most popular for encrypting a file or a message, which is what we are dealing with here.
+# for asymmetric we will use RSA since it is the most popular for encrypting a file or a message, which is what we are dealing with here.
 # https://www.trentonsystems.com/blog/symmetric-vs-asymmetric-encryption source
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
