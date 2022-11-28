@@ -127,7 +127,6 @@ def Submit():
     doctorAddress = gui.DoctorAddress.get()
     fileUpload = gui.FileUpload.get()
     fileAllowed = gui.FilesAllowed.get()
-    print(fileUpload)
     mode = gui.Mode.get()
     load_dotenv()
     abi = os.getenv('ABI')

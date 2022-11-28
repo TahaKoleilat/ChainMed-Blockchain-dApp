@@ -14,7 +14,6 @@ def get_private_key(url):
     with open(keyfile.replace("\\",'/')) as f:
         key_data = json.load(f)
     private_key = web3.eth.account.decrypt(key_data,"").hex()
-    Asymmetric_Encryption()
     return private_key
 
 def deploy_contract(abi,bytecode,url):
@@ -151,7 +150,7 @@ contract_address = os.getenv("Contract_Address")
 
 #Register a doctor using the following lines of code
 # doctorAddress = Web3.toChecksumAddress("0xca843569e3427144cead5e4d5999a3d0ccf92b8e")
-# doctorID = 202001283
+# doctorID = 202
 # doctorName = 'John'
 # doctorSurname = 'Doe'
 # tx = register_doctor(abi,url,doctorAddress,contract_address,doctorID,doctorName,doctorSurname)
@@ -159,8 +158,6 @@ contract_address = os.getenv("Contract_Address")
 
 #Register a patient using the following lines of code
 # patientAddress = Web3.toChecksumAddress("0x0fbdc686b912d7722dc86510934589e0aaf3b55a")
-# patientID = 202001282
+# patientID = 2000
 # tx = register_patient(abi,url,patientID,patientAddress,contract_address)
 # print(tx)
-web3 = Web3(Web3.HTTPProvider(url))
-print(web3.eth.accounts[0])
